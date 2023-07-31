@@ -4,7 +4,10 @@ import org.apache.pulsar.client.impl.schema.StringSchema;
 import org.apache.pulsar.shade.org.apache.commons.lang3.SerializationUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class SimpleProducer {
 
@@ -135,6 +138,40 @@ public class SimpleProducer {
             employer.setEmployerName("test name");
             employer.setEmployerNumber(123L);
             u.setEmployer(employer);
+
+
+            Employer exp1eployer = new Employer();
+            exp1eployer.setEmployerName("test exp1");
+            exp1eployer.setEmployerNumber(123L);
+            Experience exp1 = new Experience();
+            exp1.setDesignation("lead");
+            exp1.setEmployer(exp1eployer);
+            exp1.setFromDate(new Date());
+            exp1.setToDate(new Date());
+
+            Employer exp2Employer = new Employer();
+            exp2Employer.setEmployerName("test exp1");
+            exp2Employer.setEmployerNumber(123L);
+            Experience exp2 = new Experience();
+            exp2.setDesignation("lead");
+            exp2.setEmployer(exp2Employer);
+            exp2.setFromDate(new Date());
+            exp2.setToDate(new Date());
+
+            List<String> hobbies = new ArrayList<>();
+            hobbies.add("Cricket");
+            hobbies.add("Movies");
+            u.setHobbies(hobbies);
+
+            List<Integer> numbers = new ArrayList<>();
+            numbers.add(1);
+            numbers.add(2);
+            u.setNumbers(numbers);
+
+
+            List<Experience> experiences = Arrays.asList(exp1, exp2);
+            u.setExperiences(experiences);
+
             String s = gson.toJson(u);
             producer.send(s.getBytes());
         }
